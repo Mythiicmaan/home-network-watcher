@@ -44,7 +44,7 @@ ignore = ["S101", "B008", "E501"]  # line length is enforced by ruff format
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S105", "S106", "S108"]
-"scripts/make_sample_data.py" = ["S311"]
+"netwatch/sample_data.py" = ["S311"]
 "netwatch/migrations/**" = ["W291"]
 
 [tool.pytest.ini_options]
