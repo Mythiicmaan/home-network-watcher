@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "home-network-watcher"
+version = "0.1.0"
+description = "Self-hosted home network monitor: device inventory, new-device alerts, risky-port checks, and ARP-spoofing / IP-conflict detection."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.32,<1",
+    "jinja2>=3.1,<4",
+    "python-multipart>=0.0.12",
+    "sqlalchemy>=2.0,<3",
+    "alembic>=1.14,<2",
+    "argon2-cffi>=23.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+    "ruff>=0.8",
+    "pre-commit>=4.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["netwatch*"]
+
+[tool.setuptools.package-data]
+netwatch = ["templates/**/*", "static/**/*", "migrations/**/*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["netwatch/static"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM"]
+ignore = ["S101", "B008", "E501"]  # line length is enforced by ruff format
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "S108"]
+"scripts/make_sample_data.py" = ["S311"]
+"netwatch/migrations/**" = ["W291"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

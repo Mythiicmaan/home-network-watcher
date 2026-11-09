@@ -1,0 +1,58 @@
+# Example configuration for Home Network Watcher (no real values here).
+#
+# Copy this file to %NETWATCH_DATA_DIR%\config.toml (default C:\NetWatchData\config.toml)
+# and edit it there. The real config.toml is git-ignored and must never be committed.
+
+[network]
+# Leave empty to auto-detect the home subnet from the physical adapter that has a
+# default gateway (VPN, Tailscale, and virtual adapters are ignored).
+# Only private ranges are ever scanned; anything else is refused.
+subnets = []            # e.g. ["192.0.2.0/24"]
+adapter = ""            # optional: force a specific adapter by its name, e.g. "Ethernet"
+
+[scan]
+enabled = true
+interval_minutes = 5
+ping_concurrency = 64
+ping_timeout_ms = 700
+# A scan that finds fewer than this share of the usually-seen devices (or can't see
+# the gateway) is marked "degraded": it never marks devices offline or fires alerts.
+degraded_ratio = 0.3
+resolve_names = true    # reverse DNS, NetBIOS, and mDNS lookups for hostnames
+
+[ports]
+auto_check_new = true   # TCP connect scan (nmap -sT) of every new device
+top_ports = 100
+nmap_path = ""          # empty = C:\Program Files (x86)\Nmap\nmap.exe, then PATH
+
+[alerts]
+quiet_hours = ""        # e.g. "22:00-07:00"; empty = off. Alerts wait until it ends.
+digest_day = "sunday"
+digest_hour = 18
+
+# Phase 3: email alerts through Gmail SMTP with an app password.
+# [alerts.email]
+# smtp_host = "smtp.gmail.com"
+# smtp_port = 587
+# username = "you@example.com"
+# app_password = "paste it here, never in chat or in the repo"
+# to = "you@example.com"
+
+[app]
+# Base URL used for links in alerts, e.g. your Tailscale HTTPS address on port 8443.
+base_url = "http://localhost:8766"
+# Hosts allowed in the Host header besides localhost and *.ts.net (Tailscale).
+extra_allowed_hosts = []
+
+[auth]
+localhost_skip_pin = true   # the desktop itself (http://localhost:8766) skips the PIN
+session_days = 90
+
+[backup]
+# Phase 4: nightly backups (2:30 AM). If the drive is missing the app shows a banner.
+# dir = 'X:\Backups\NetWatch'
+
+[oui]
+# Public IEEE/Wireshark vendor list, downloaded at runtime into the data folder.
+url = "https://www.wireshark.org/download/automated/data/manuf"
+refresh_days = 30

@@ -1,0 +1,42 @@
+# --- Privacy guardrails (do not weaken) ---
+*.db
+*.db-*
+*.sqlite*
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.pcap
+*.pcapng
+.env
+.env.*
+config.toml
+data/
+logs/
+backups/
+# Vendor (OUI) cache: public data, fetched at runtime into the data folder
+manuf
+manuf.txt
+oui.txt
+oui/
+
+# --- Python ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# --- Claude Code local settings ---
+.claude/settings.local.json
