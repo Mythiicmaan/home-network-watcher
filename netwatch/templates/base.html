@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NetWatch">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="htmx-config" content='{"includeIndicatorStyles": false, "scrollIntoViewOnBoost": false, "historyCacheSize": 0}'>
+  <title>{% block title %}NetWatch{% endblock %}</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/static/app.css?v=1">
+  <script src="/static/vendor/htmx.min.js" defer></script>
+  <script src="/static/app.js?v=1" defer></script>
+</head>
+<body hx-boost="true">
+  <header class="topbar">
+    <div class="title">{% block heading %}NetWatch{% endblock %}</div>
+    {% if monitor and monitor.state.scanning %}<div class="small muted">Scanning…</div>{% endif %}
+  </header>
+
+  <main class="wrap">
+    {% for b in banners %}
+    {% if b.href %}<a class="banner {{ b.level }}" href="{{ b.href }}">⚠ {{ b.text }}</a>
+    {% else %}<div class="banner {{ b.level }}">{% if b.level != "info" %}⚠ {% endif %}{{ b.text }}</div>{% endif %}
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+
+  {% if toast %}
+  <div class="toast{% if toast.error %} error{% endif %}" role="status"><span>{{ toast.msg }}</span></div>
+  {% endif %}
+
+  {% if nav != "login" %}
+  <nav class="nav">
+    <a href="/" class="{{ 'on' if nav == 'dashboard' }}"><span class="ico">◉</span>Home</a>
+    <a href="/devices" class="{{ 'on' if nav in ('devices', 'device') }}"><span class="ico">▦</span>Devices</a>
+    <a href="/alerts" class="{{ 'on' if nav == 'alerts' }}"><span class="ico">!</span>Alerts</a>
+    <a href="/settings" class="{{ 'on' if nav == 'settings' }}"><span class="ico">⚙</span>Settings</a>
+  </nav>
+  {% endif %}
+</body>
+</html>

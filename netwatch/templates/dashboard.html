@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% from "_macros.html" import status_badge, dot, sev %}
+{% block heading %}Home Network{% endblock %}
+{% block content %}
+{% include "_status.html" %}
+{% if monitor %}
+<form method="post" action="/scan-now" class="right"><button class="btn small" type="submit">{{ "Scanning…" if monitor.state.scanning else "Scan now" }}</button></form>
+{% endif %}
+
+<section class="card flush">
+  <div class="card-head"><h2>Needs a look</h2><a class="small" href="/devices?status=unknown">All unknown →</a></div>
+  {% if attention %}
+  <ul class="list">
+    {% for d in attention %}
+    <li class="attention">
+      <a class="rowlink" href="/devices/{{ d.id }}">
+        <span>{{ dot(d.id in online) }} <strong>{{ d.display_name }}</strong>
+          {% if d.is_randomized_mac %}<span class="badge rnd">Private address</span>{% endif %}
+          {% if d.id in returning %}<span class="badge sev-warning">Back {{ returning[d.id] }} days</span>{% endif %}
+          <br><span class="muted small">{{ d.vendor or "Unknown vendor" }} · {{ d.last_ip }} · first seen {{ d.first_seen | local }}</span></span>
+      </a>
+      <form method="post" action="/devices/{{ d.id }}/status" class="quick-known">
+        <input type="text" name="friendly_name" placeholder="Name it (e.g. Alex's Tablet)" aria-label="Name for {{ d.display_name }}" value="{{ d.friendly_name }}">
+        <button class="btn small primary" name="status" value="known" type="submit">Known</button>
+        <button class="btn small" name="status" value="ignored" type="submit" data-confirm="Ignore this device? It will never alert again.">Ignore</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="pad muted">Nothing new. Every device has been reviewed.</p>
+  {% endif %}
+</section>
+
+{% if risky %}
+<section class="card flush">
+  <div class="card-head"><h2>Risky ports open</h2></div>
+  <ul class="list">
+    {% for d, p in risky %}
+    <li><a class="rowlink" href="/devices/{{ d.id }}#ports"><span><strong>{{ d.display_name }}</strong><br>
+      <span class="small muted">{% for r in p.risky_ports %}{{ r.port }} {{ r.service }}{% if not loop.last %} · {% endif %}{% endfor %}</span></span>
+      <span class="badge sev-{{ 'high' if p.risky_ports | selectattr('severity', 'equalto', 'high') | list else 'warning' }}">{{ p.risky_ports | length }}</span></a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="card flush">
+  <div class="card-head"><h2>Recent alerts</h2><a class="small" href="/alerts?show=all">History →</a></div>
+  {% if recent %}
+  <ul class="list">
+    {% for a in recent %}
+    <li><a class="rowlink" href="{{ '/devices/%d' % a.device_id if a.device_id else '/alerts' }}">
+      <span>{{ sev(a) }} {{ a.title }}<br><span class="small muted">{{ kinds[a.kind] }} · {{ a.created_at | local }}</span></span>
+      {% if not a.acknowledged %}<span class="badge sev-warning">open</span>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="pad muted">No alerts yet.</p>
+  {% endif %}
+</section>
+<p class="small muted center">{{ sm.devices }} devices in the inventory · {{ sm.new_this_week }} new this week</p>
+{% endblock %}

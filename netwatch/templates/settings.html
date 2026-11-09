@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block heading %}Settings{% endblock %}
+{% block content %}
+<section class="card" id="network">
+  <h2>Network</h2>
+  <dl class="facts">
+    <dt>Subnet</dt><dd class="mono">{{ last.subnet if last and last.subnet else "not detected yet" }}{% if cfg.subnet_override %} <span class="badge">override</span>{% endif %}</dd>
+    <dt>Adapter</dt><dd>{{ last.adapter if last and last.adapter else "—" }}</dd>
+    <dt>Gateway</dt><dd class="mono">{{ last.gateway_ip if last and last.gateway_ip else "—" }}</dd>
+    <dt>Scan every</dt><dd>{{ cfg.scan_interval_minutes }} minutes{% if not monitor %} <span class="badge sev-warning">monitor not running</span>{% endif %}</dd>
+    <dt>Last scan</dt><dd>{% if last %}{{ last.started_at | local }}: {{ last.hosts_found }} devices, {{ "degraded" if last.degraded else ("ok" if last.ok else "failed") }}{% else %}never{% endif %}</dd>
+  </dl>
+  {% if result and result.choice %}
+  <details class="small"><summary class="muted">Adapters that were skipped ({{ result.choice.skipped | length }})</summary>
+    <ul>{% for label, why in result.choice.skipped %}<li>{{ label }}: {{ why }}</li>{% endfor %}</ul>
+    {% if result.choice.vpn_up %}<p class="warn">Connected VPN: {{ result.choice.vpn_up | join(", ") }}</p>{% endif %}
+  </details>
+  {% endif %}
+  <p class="small muted">Auto-detected from the physical adapter with a default gateway. To override, set <code>network.subnets</code> or <code>network.adapter</code> in <code>config.toml</code> in the data folder. Only private ranges are ever scanned.</p>
+</section>
+
+<section class="card" id="gateway">
+  <h2>Gateway (ARP spoofing check)</h2>
+  <dl class="facts">
+    <dt>Gateway IP</dt><dd class="mono">{{ gateway_ip or "—" }}</dd>
+    <dt>Trusted MAC</dt><dd class="mono">{{ trusted_gw or "learned on the first good scan" }}</dd>
+  </dl>
+  {% if pending_gw %}
+  <div class="risk high">
+    <strong>{{ pending_gw.title }}</strong>
+    <p class="small">Now answering: <span class="mono">{{ pending_gw.details.observed_mac }}</span> (since {{ pending_gw.created_at | local }}).</p>
+    <p class="small">Only accept this if you replaced or reset the gateway. Otherwise, find and disconnect the device with that MAC.</p>
+    <form method="post" action="/settings/accept-gateway"><input type="hidden" name="alert_id" value="{{ pending_gw.id }}">
+      <button class="btn small danger" type="submit" data-confirm="Trust the new gateway MAC? Only do this if you changed the router.">Trust the new MAC</button></form>
+  </div>
+  {% endif %}
+</section>
+
+<section class="card" id="alerts">
+  <h2>Alerts</h2>
+  <dl class="facts">
+    <dt>Channel</dt><dd>{% if channel %}Email{% else %}<span class="warn">Not set up yet</span>{% endif %}</dd>
+    <dt>Waiting to send</dt><dd>{{ delivery.unsent }}{% if delivery.failing %} <span class="neg">({{ delivery.failing }} failing: {{ delivery.last_error }})</span>{% endif %}</dd>
+    <dt>Quiet hours</dt><dd>{% if cfg.quiet_hours %}{{ cfg.quiet_hours[0].strftime("%H:%M") }} to {{ cfg.quiet_hours[1].strftime("%H:%M") }} (high-priority alerts still go out){% else %}Off{% endif %}</dd>
+    <dt>Weekly digest</dt><dd>{{ ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][cfg.digest_weekday] }}s at {{ cfg.digest_hour }}:00</dd>
+    <dt>Port-check new devices</dt><dd>{{ "Yes" if cfg.auto_port_check else "No" }}</dd>
+  </dl>
+  {% if not channel %}<p class="small muted">Email alerts (Gmail) are set up in the next step. Until then, alerts are kept here and sent once a channel exists.</p>{% endif %}
+</section>
+
+<section class="card" id="pin">
+  <h2>PIN for phones</h2>
+  <p class="small muted">{{ "A PIN is set." if pin_set else "No PIN yet: phones can't sign in until one is set." }} This PC skips the PIN{{ "" if cfg.localhost_skip_pin else " (turned off)" }}.</p>
+  {% if is_local %}
+  <form method="post" action="/settings/pin" class="stack" autocomplete="off">
+    <div class="grid2">
+      <div><label for="pin">New PIN (4 to 12 digits)</label><input id="pin" type="password" name="pin" inputmode="numeric" pattern="[0-9]*" required></div>
+      <div><label for="pin2">Repeat it</label><input id="pin2" type="password" name="pin2" inputmode="numeric" pattern="[0-9]*" required></div>
+    </div>
+    <button class="btn" type="submit">{{ "Change PIN" if pin_set else "Set PIN" }}</button>
+  </form>
+  {% else %}
+  <p class="small">The PIN can only be changed on the home PC.</p>
+  <form method="post" action="/logout"><button class="btn small" type="submit">Sign out on this phone</button></form>
+  {% endif %}
+</section>
+
+<section class="card" id="data">
+  <h2>Data</h2>
+  <dl class="facts">
+    <dt>Devices</dt><dd>{{ device_count }}</dd>
+    <dt>Vendor list</dt><dd>{% if oui_entries is not none %}{{ "{:,}".format(oui_entries) }} entries{% else %}—{% endif %}{% if oui_problem %} <span class="neg small">{{ oui_problem }}</span>{% endif %}</dd>
+    <dt>Backups</dt><dd>{% if cfg.backup_dir %}{{ cfg.backup_dir }}{% else %}<span class="warn">Not set up yet</span>{% endif %}</dd>
+  </dl>
+  <a class="btn small" href="/export.csv" hx-boost="false">Download device inventory (CSV)</a>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "_macros.html" import sev, delivery %}
+{% block heading %}Alerts{% endblock %}
+{% block content %}
+<form class="card inline filters" method="get" action="/alerts">
+  <select name="kind" aria-label="Kind" data-autosubmit>
+    <option value="" {{ 'selected' if not kind }}>All kinds</option>
+    {% for k, label in kinds.items() %}<option value="{{ k }}" {{ 'selected' if kind == k }}>{{ label }}</option>{% endfor %}
+  </select>
+  <select name="show" aria-label="Show" data-autosubmit>
+    <option value="open" {{ 'selected' if show == 'open' }}>Open</option>
+    <option value="all" {{ 'selected' if show == 'all' }}>All history</option>
+  </select>
+  <noscript><button class="btn shrink" type="submit">Filter</button></noscript>
+</form>
+
+{% if items and show == "open" %}
+<form method="post" action="/alerts/ack-all" class="right">
+  <input type="hidden" name="kind" value="{{ kind }}">
+  <button class="btn small" type="submit" data-confirm="Acknowledge all {{ items | length }} open alert(s)?">Acknowledge all</button>
+</form>
+{% endif %}
+
+<section class="card flush">
+  {% if items %}
+  <ul class="list">
+    {% for a in items %}
+    <li class="alert-item {{ 'acked' if a.acknowledged }}">
+      <div class="row">
+        <div class="grow">{{ sev(a) }} <strong>{{ a.title }}</strong></div>
+        {% if not a.acknowledged %}
+        <form method="post" action="/alerts/{{ a.id }}/ack"><button class="btn small" type="submit">Acknowledge</button></form>
+        {% endif %}
+      </div>
+      <details>
+        <summary class="small muted">{{ kinds[a.kind] }} · {{ a.created_at | local }} · {{ delivery(a) }}</summary>
+        {% for p in a.message.split("\n\n") %}<p class="small">{{ p }}</p>{% endfor %}
+        {% if a.details and a.details.facts %}
+        <dl class="facts small">{% for k, v in a.details.facts %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>
+        {% endif %}
+        {% if a.last_error %}<p class="small neg">Delivery: {{ a.last_error }}</p>{% endif %}
+        <p class="small">
+          {% if a.device_id %}<a href="/devices/{{ a.device_id }}">Open device →</a>{% endif %}
+          {% if a.kind == "gateway_mac_change" and not a.acknowledged %} · <a href="/settings#gateway">Review the gateway →</a>{% endif %}
+        </p>
+        {% if a.kind == "new_device" and a.device and a.device.status == "unknown" %}
+        <form method="post" action="/devices/{{ a.device_id }}/status" class="quick-known">
+          <input type="text" name="friendly_name" placeholder="Name it" aria-label="Name">
+          <button class="btn small primary" name="status" value="known" type="submit">Mark Known</button>
+        </form>
+        {% endif %}
+      </details>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="pad muted">{{ "No open alerts." if show == "open" else "No alerts yet." }}</p>
+  {% endif %}
+</section>
+{% endblock %}

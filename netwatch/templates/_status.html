@@ -1,0 +1,16 @@
+<div id="status" class="card status {{ health.level }}" hx-get="/partials/status" hx-trigger="every 30s" hx-swap="outerHTML">
+  <div class="row">
+    <div>
+      <div class="stat-label">Scan health</div>
+      <div class="value"><span class="dot {{ 'on' if health.level == 'good' else health.level }}"></span> {{ health.label }}</div>
+    </div>
+    <div class="right small muted">
+      {% if health.last %}Last scan {{ health.last.started_at | ago }}<br>{{ health.last.hosts_found }} devices found{% else %}Waiting for the first scan{% endif %}
+    </div>
+  </div>
+  <div class="grid3">
+    <a class="stat" href="/devices?sort=online"><div class="stat-label">Online now</div><div class="value">{{ sm.online }}</div></a>
+    <a class="stat" href="/devices?status=unknown"><div class="stat-label">Unknown</div><div class="value {{ 'warn' if sm.unknown }}">{{ sm.unknown }}</div></a>
+    <a class="stat" href="/alerts"><div class="stat-label">Open alerts</div><div class="value {{ 'neg' if sm.unacknowledged }}">{{ sm.unacknowledged }}</div></a>
+  </div>
+</div>

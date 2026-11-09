@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block heading %}NetWatch{% endblock %}
+{% block content %}
+<form class="card stack" method="post" action="/login" autocomplete="off">
+  <h1>Enter PIN</h1>
+  <input type="hidden" name="next" value="{{ next }}">
+  {% if locked_for %}<p class="neg">Too many wrong tries. Try again in {{ (locked_for / 60) | round(0, 'ceil') | int }} min.</p>{% endif %}
+  {% if not pin_set %}<p class="warn">No PIN has been set yet. Set one in Settings on the home PC.</p>{% endif %}
+  <input class="pin-input" name="pin" type="password" inputmode="numeric" pattern="[0-9]*" autofocus required aria-label="PIN">
+  <button class="btn primary block" type="submit">Sign in</button>
+  <p class="muted small">You'll stay signed in on this device.</p>
+</form>
+{% endblock %}

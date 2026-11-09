@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block heading %}Devices{% endblock %}
+{% block content %}
+<form class="card stack filters" method="get" action="/devices" hx-get="/devices" hx-target="#device-rows" hx-trigger="input changed delay:250ms from:input[name=q], change" hx-push-url="true">
+  <input type="search" name="q" value="{{ q }}" placeholder="Search name, owner, vendor, IP, MAC" aria-label="Search devices">
+  <div class="inline">
+    <select name="status" aria-label="Status">
+      <option value="" {{ 'selected' if not status }}>All devices</option>
+      <option value="unknown" {{ 'selected' if status == 'unknown' }}>Unknown</option>
+      <option value="known" {{ 'selected' if status == 'known' }}>Known</option>
+      <option value="ignored" {{ 'selected' if status == 'ignored' }}>Ignored</option>
+    </select>
+    <select name="sort" aria-label="Sort by">
+      {% for key, label in [("online", "Online first"), ("name", "Name"), ("ip", "IP address"), ("vendor", "Vendor"), ("last_seen", "Last seen"), ("first_seen", "First seen"), ("status", "Status")] %}
+      <option value="{{ key }}" {{ 'selected' if sort == key }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <noscript><button class="btn" type="submit">Filter</button></noscript>
+</form>
+<div id="device-rows">{% include "_device_rows.html" %}</div>
+<p class="small muted center"><a href="/export.csv" hx-boost="false">Download the inventory (CSV)</a></p>
+{% endblock %}

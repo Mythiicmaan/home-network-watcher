@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% from "_macros.html" import status_badge, dot, mac, sev, delivery %}
+{% block heading %}{{ d.display_name }}{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="row">
+    <div><h1>{{ dot(online) }} {{ d.display_name }}</h1>
+      {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private/randomized address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}</div>
+    <div class="right small muted">{{ "Online now" if online else "Last seen " ~ (d.last_seen | ago) }}</div>
+  </div>
+  <dl class="facts">
+    <dt>Vendor</dt><dd>{{ d.vendor or ("None (private address)" if d.is_randomized_mac else "Unknown") }}</dd>
+    <dt>Hostname</dt><dd>{{ d.hostname or "—" }}{% if d.hostname_source %} <span class="muted small">({{ d.hostname_source }})</span>{% endif %}</dd>
+    <dt>IP address</dt><dd class="mono">{{ d.last_ip }}</dd>
+    <dt>MAC address</dt><dd>{{ mac(d.mac) }}</dd>
+    <dt>First seen</dt><dd>{{ d.first_seen | local }}{% if d.in_baseline %} <span class="muted small">(first scan)</span>{% endif %}</dd>
+    <dt>Last seen</dt><dd>{{ d.last_seen | local }}</dd>
+    <dt>Days seen</dt><dd>{{ days_seen }} of the last 14</dd>
+  </dl>
+  {% if d.is_randomized_mac %}<p class="small muted">Phones and tablets use a private MAC address per Wi-Fi network. If the phone rotates it, it may show up as a new device.</p>{% endif %}
+</section>
+
+<form class="card stack" method="post" action="/devices/{{ d.id }}">
+  <h2>Name and status</h2>
+  <div class="grid2">
+    <div><label for="fn">Name</label><input id="fn" type="text" name="friendly_name" value="{{ d.friendly_name }}" placeholder="e.g. Living room TV" maxlength="120"></div>
+    <div><label for="ow">Owner</label><input id="ow" type="text" name="owner" value="{{ d.owner }}" placeholder="e.g. Sam" maxlength="120"></div>
+  </div>
+  <div>
+    <label>Status</label>
+    <div class="segmented three">
+      {% for value, label in [("known", "Known"), ("unknown", "Unknown"), ("ignored", "Ignore")] %}
+      <input type="radio" id="st-{{ value }}" name="status" value="{{ value }}" {{ 'checked' if d.status == value }}><label for="st-{{ value }}">{{ label }}</label>
+      {% endfor %}
+    </div>
+    <p class="small muted">Ignored devices never alert again, including for risky ports.</p>
+  </div>
+  <div><label for="nt">Notes</label><textarea id="nt" name="notes" rows="2" maxlength="4000">{{ d.notes }}</textarea></div>
+  <button class="btn primary block" type="submit">Save</button>
+</form>
+
+<section class="card">
+  <h2>Online, last 7 days</h2>
+  <div class="timeline" role="img" aria-label="Hours this device was seen over the last 7 days">
+    {% for label, hours in days %}
+    <div class="tl-row"><span class="tl-day">{{ label }}</span><span class="tl-cells">{% for seen in hours %}<i class="{{ 'on' if seen else ('na' if seen is none) }}" title="{{ label }} {{ loop.index0 }}:00{{ ' seen' if seen }}"></i>{% endfor %}</span></div>
+    {% endfor %}
+    <div class="tl-row tl-axis"><span class="tl-day"></span><span class="tl-scale"><span>12a</span><span>6a</span><span>12p</span><span>6p</span></span></div>
+  </div>
+  {% if ips | length > 1 %}
+  <p class="small muted">Recent IPs: {% for ip, at in ips %}{{ ip }} ({{ at | ago }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
+  {% endif %}
+</section>
+
+<section class="card" id="ports">
+  <div class="row"><h2>Port check</h2>
+    <form method="post" action="/devices/{{ d.id }}/scan"><button class="btn small" type="submit" {{ 'disabled' if pending }}>{{ "Queued…" if pending and pending.status == "queued" else ("Running…" if pending else "Scan now") }}</button></form>
+  </div>
+  {% if latest %}
+    <p class="small muted">Checked {{ latest.finished_at | local }} at {{ latest.ip }} using {{ "Nmap (TCP connect)" if latest.method == "nmap" else "the built-in check" }}.{% if latest.error and latest.status == "done" %} Note: {{ latest.error }}{% endif %}</p>
+    {% if latest.status == "failed" %}
+      <p class="neg">The check failed: {{ latest.error }}</p>
+    {% elif latest.risky_ports %}
+      {% for r in latest.risky_ports %}
+      <div class="risk {{ r.severity }}">
+        <strong>{{ r.port }}/tcp · {{ r.service }}</strong> <span class="badge sev-{{ r.severity }}">{{ "High risk" if r.severity == "high" else "Worth a look" }}</span>
+        <p>{{ r.why }}</p><p class="small"><strong>What to do:</strong> {{ r.fix }}</p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="pos">No risky ports open.</p>
+    {% endif %}
+    {% if latest.open_ports %}
+    <p class="small">All open ports: {% for p in latest.open_ports %}<span class="badge">{{ p.port }}{% if p.service %} {{ p.service }}{% endif %}</span> {% endfor %}</p>
+    {% elif latest.status == "done" %}<p class="small muted">No open TCP ports found among the ports checked.</p>{% endif %}
+  {% elif pending %}
+    <p class="muted">A port check is {{ pending.status }}.</p>
+  {% else %}
+    <p class="muted">Not checked yet.</p>
+  {% endif %}
+</section>
+
+{% if alerts %}
+<section class="card flush">
+  <div class="card-head"><h2>Alerts for this device</h2></div>
+  <ul class="list">
+    {% for a in alerts %}
+    <li><div>{{ sev(a) }} {{ a.title }}</div><div class="small muted">{{ kinds[a.kind] }} · {{ a.created_at | local }} · {{ delivery(a) }}{% if a.acknowledged %} · acknowledged{% endif %}</div></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

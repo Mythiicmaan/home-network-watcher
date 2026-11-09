@@ -1,0 +1,27 @@
+{% from "_macros.html" import status_badge, dot, mac %}
+<div class="card flush">
+  {% if rows %}
+  <table class="devices">
+    <thead><tr><th></th><th>Device</th><th class="hide-sm">Vendor</th><th>IP</th><th class="hide-sm">MAC</th><th class="hide-sm">First seen</th><th>Last seen</th></tr></thead>
+    <tbody>
+    {% for r in rows %}{% set d = r.device %}
+    <tr class="{{ 'is-unknown' if d.status == 'unknown' }}{{ ' is-ignored' if d.status == 'ignored' }}">
+      <td>{{ dot(r.online) }}</td>
+      <td><a href="/devices/{{ d.id }}"><strong>{{ d.display_name }}</strong></a>
+        {% if d.owner %}<span class="muted small">· {{ d.owner }}</span>{% endif %}<br>
+        {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}
+        <span class="show-sm muted small"><br>{{ d.vendor or "" }}</span></td>
+      <td class="hide-sm small">{{ d.vendor or "—" }}</td>
+      <td class="mono small">{{ d.last_ip }}</td>
+      <td class="hide-sm">{{ mac(d.mac) }}</td>
+      <td class="hide-sm small">{{ d.first_seen | local }}</td>
+      <td class="small">{{ "now" if r.online else (d.last_seen | ago) }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="pad muted">No devices match.</p>
+  {% endif %}
+</div>
+<p class="small muted center">{{ rows | length }} device{{ '' if rows | length == 1 else 's' }}</p>

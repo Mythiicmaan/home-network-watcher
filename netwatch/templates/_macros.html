@@ -1,0 +1,21 @@
+{% macro status_badge(d) -%}
+<span class="badge st-{{ d.status }}">{{ {"unknown": "Unknown", "known": "Known", "ignored": "Ignored"}[d.status] }}</span>
+{%- endmacro %}
+
+{% macro dot(on) -%}
+<span class="dot {{ 'on' if on else 'off' }}" title="{{ 'Online' if on else 'Offline' }}" aria-label="{{ 'Online' if on else 'Offline' }}"></span>
+{%- endmacro %}
+
+{% macro mac(value) -%}
+<button type="button" class="mac" data-reveal="{{ value }}" title="Tap to show the full MAC">{{ value | mask_mac }}</button>
+{%- endmacro %}
+
+{% macro sev(a) -%}
+<span class="badge sev-{{ a.severity }}">{{ {"high": "High", "warning": "Warning", "info": "Info"}[a.severity] }}</span>
+{%- endmacro %}
+
+{% macro delivery(a) -%}
+{% if a.sent_ok %}<span class="muted small">sent {{ a.sent_at | local }}</span>
+{% elif a.send_attempts %}<span class="neg small" title="{{ a.last_error }}">not sent ({{ a.send_attempts }} tries), retrying</span>
+{% else %}<span class="warn small">waiting to send</span>{% endif %}
+{%- endmacro %}
