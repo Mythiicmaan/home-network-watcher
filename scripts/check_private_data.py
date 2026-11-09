@@ -16,8 +16,8 @@ Fails if any staged file, or the commit message, contains:
 Allowed on purpose: the range definitions themselves (10.0.0.0/8,
 172.16.0.0/12, 192.168.0.0/16, 100.64.0.0/10, fd7a:115c:a1e0::/48, fe80::/10),
 127.0.0.1, and the sample range 192.0.2.0/24 with its addresses. Other
-non-routable addresses (loopback, link-local, multicast, documentation) are
-not identifying and are allowed.
+non-routable addresses (loopback, link-local, multicast groups, documentation)
+are not identifying and are allowed.
 
 Usage (wired up in .pre-commit-config.yaml):
     python scripts/check_private_data.py FILE [FILE ...]
@@ -133,8 +133,8 @@ def ipv4_problems(text: str) -> list[str]:
             continue  # e.g. 999.1.1.1, a version string
         if f"{addr_s}{prefix}" in ALLOWED_V4_DEFINITIONS:
             continue
-        if addr in SAMPLE_V4 or addr_s == "127.0.0.1":
-            continue
+        if addr in SAMPLE_V4 or addr_s == "127.0.0.1" or addr.is_multicast:
+            continue  # multicast groups (e.g. SSDP's) are protocol constants
         if any(addr in net for net in BLOCKED_V4):
             out.append(f"private or Tailscale IPv4 address ({mask(addr_s)})")
         elif addr.is_global:
