@@ -10,6 +10,16 @@
         "$env:NETWATCH_DATA_DIR = (Join-Path $PWD 'data/sample'); ./.venv/Scripts/python.exe -m netwatch --sample --port 8768"
       ],
       "port": 8768
+    },
+    {
+      "name": "netwatch",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "./.venv/Scripts/python.exe -m netwatch"
+      ],
+      "port": 8766
     }
   ]
 }

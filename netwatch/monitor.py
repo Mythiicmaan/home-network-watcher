@@ -116,6 +116,8 @@ class Monitor:
         )
         self.state.last_result = result
         if result.subnets:
+            if not self.state.subnets:
+                self._port_work.set()  # checks queued before a restart can run now
             self.state.subnets = result.subnets
         with session_scope(self.factory) as s:
             known = inventory.known_macs(s)

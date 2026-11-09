@@ -11,6 +11,18 @@ A small, self-hosted monitor for a home network. It runs 24/7 on a Windows deskt
 
 > Work in progress. All examples use a fake sample network (`192.0.2.0/24`, MACs `02:00:00:xx:xx:xx`).
 
+## Run it on the home PC
+
+```powershell
+.\.venv\Scripts\python -m netwatch           # app + monitor on http://localhost:8766
+.\.venv\Scripts\python -m netwatch scan      # one discovery pass, prints counts only
+.\.venv\Scripts\python -m netwatch --sample  # demo on the fake sample network, no scanning
+```
+
+Data lives in `%NETWATCH_DATA_DIR%` (default `C:\NetWatchData`): the database, `config.toml`
+(copy `config.example.toml`), logs, and the downloaded vendor list. The first good scan is a
+silent baseline; after that, every never-seen device raises one alert.
+
 ## Development
 
 ```powershell
