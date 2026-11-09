@@ -67,3 +67,11 @@ def test_no_adapter_is_recorded_as_failed_scan(engine, tmp_path, monkeypatch):
 
 async def _no_sleep(_seconds):
     return None
+
+
+def test_sample_data_refuses_the_real_data_folder(monkeypatch):
+    from netwatch.__main__ import main
+    from netwatch.config import DEFAULT_DATA_DIR
+
+    monkeypatch.setenv("NETWATCH_DATA_DIR", DEFAULT_DATA_DIR)
+    assert main(["sample-data"]) == 1

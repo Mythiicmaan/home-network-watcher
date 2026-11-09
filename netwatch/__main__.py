@@ -62,11 +62,16 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.sample:
         os.environ["NETWATCH_SAMPLE"] = "1"
+        # Never mix the demo with real data: default to the git-ignored data/sample folder.
+        os.environ.setdefault("NETWATCH_DATA_DIR", str(Path.cwd() / "data" / "sample"))
 
-    from netwatch.config import load_config
+    from netwatch.config import DEFAULT_DATA_DIR, load_config
     from netwatch.db import make_engine, make_sessionmaker, migrate, session_scope
 
     cfg = load_config()
+    if args.command == "sample-data" and cfg.paths.data_dir == Path(DEFAULT_DATA_DIR):
+        print("Refusing to put sample data in the real data folder. Set NETWATCH_DATA_DIR.")
+        return 1
 
     if args.command == "serve":
         import uvicorn
