@@ -109,6 +109,19 @@ def test_device_page_timeline_and_ports(client, app):
     assert client.get("/devices/99999").status_code == 400
 
 
+def test_this_pc_is_labeled_and_explains_its_port_check(client, app):
+    d = device(app, "Home Desktop")
+    r = client.get(f"/devices/{d.id}")
+    assert "This PC (runs NetWatch)" in r.text
+    assert "Windows Firewall doesn't apply" in r.text
+    assert "This PC</span>" in client.get("/devices").text
+    s = db(app)
+    assert not s.scalars(
+        select(Alert).where(Alert.device_id == d.id, Alert.kind == "risky_port")
+    ).all()
+    s.close()
+
+
 def test_edit_device_and_mark_known(client, app):
     s = db(app)
     unknown = s.scalar(select(Device).where(Device.status == "unknown"))

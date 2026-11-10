@@ -29,7 +29,7 @@ class SampleDevice:
 
 SAMPLE_DEVICES: list[SampleDevice] = [
     SampleDevice("02:00:00:00:00:01", SAMPLE_GATEWAY_IP, "Example Gateways Inc.", "gateway", "Gateway", "", "known", open_ports=(53, 80, 443)),
-    SampleDevice("02:00:00:00:00:0a", SAMPLE_HOST_IP, "Example PC Parts", "desktop", "Home Desktop", "Alex", "known"),
+    SampleDevice("02:00:00:00:00:0a", SAMPLE_HOST_IP, "Example PC Parts", "desktop", "Home Desktop", "Alex", "known", open_ports=(139, 445)),
     SampleDevice("02:00:00:00:01:01", "192.0.2.21", "", "", "Alex's Phone", "Alex", "known", randomized=True),
     SampleDevice("02:00:00:00:01:02", "192.0.2.22", "", "", "Sam's Phone", "Sam", "known", randomized=True),
     SampleDevice("02:00:00:00:01:03", "192.0.2.23", "Example Laptops Co.", "sams-laptop", "Sam's Laptop", "Sam", "known", open_ports=(445,)),

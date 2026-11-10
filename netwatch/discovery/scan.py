@@ -36,6 +36,7 @@ from netwatch.netutil import UnsafeTargetError, scan_hosts, validate_scan_subnet
 from netwatch.timeutil import utcnow
 
 log = logging.getLogger("netwatch.discovery")
+SELF_STATE = "self"  # Observation.state for the PC running NetWatch
 
 
 @dataclass(frozen=True)
@@ -150,7 +151,7 @@ def build_observations(
     me = choice.local_ip
     my_mac = choice.adapter.mac if choice.adapter else ""
     if me and my_mac and any(ipaddress.IPv4Address(me) in net for net in subnets):
-        seen[me] = Observation(me, my_mac, True, "self")
+        seen[me] = Observation(me, my_mac, True, SELF_STATE)
     return sorted(seen.values(), key=lambda o: ipaddress.IPv4Address(o.ip))
 
 

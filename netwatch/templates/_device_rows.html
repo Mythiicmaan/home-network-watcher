@@ -9,7 +9,7 @@
       <td>{{ dot(r.online) }}</td>
       <td><a href="/devices/{{ d.id }}"><strong>{{ d.display_name }}</strong></a>
         {% if d.owner %}<span class="muted small">· {{ d.owner }}</span>{% endif %}<br>
-        {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}
+        {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}{% if d.is_this_pc %} <span class="badge">This PC</span>{% endif %}
         <span class="show-sm muted small"><br>{{ d.vendor or "" }}</span></td>
       <td class="hide-sm small">{{ d.vendor or "—" }}</td>
       <td class="mono small">{{ d.last_ip }}</td>

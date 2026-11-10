@@ -36,7 +36,9 @@ def start(s: Session, scan: PortScan, now: datetime) -> str:
 
 
 def finish(s: Session, scan: PortScan, result: PortResult, now: datetime) -> list[int]:
-    """Store results; one risky_port alert per device+port (never for ignored devices)."""
+    """Store results; one risky_port alert per device+port. Never for ignored devices, or
+    for this PC: it checks itself, where Windows Firewall doesn't apply, so its open ports
+    don't show what other devices can reach. Those findings stay on its device page."""
     scan.finished_at = now
     scan.method = result.method
     if result.error:
@@ -51,7 +53,7 @@ def finish(s: Session, scan: PortScan, result: PortResult, now: datetime) -> lis
     scan.risky_ports = findings
     device: Device = scan.device
     alert_ids = []
-    if device.status != "ignored":
+    if device.status != "ignored" and not device.is_this_pc:
         for f in findings:
             alert = create_alert(
                 s,

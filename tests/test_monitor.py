@@ -38,7 +38,8 @@ def test_scan_then_port_check(engine, tmp_path, monkeypatch):
     assert len(checked) == 4
     s = make_sessionmaker(engine)()
     assert all(p.status == "done" for p in s.scalars(select(PortScan)))
-    assert len(list(s.scalars(select(Alert).where(Alert.kind == "risky_port")))) == 4
+    # One of the four is this PC, which checks itself and never raises port alerts.
+    assert len(list(s.scalars(select(Alert).where(Alert.kind == "risky_port")))) == 3
 
     # A new device on the next scan alerts once.
     probe.neighbor_rows.append(

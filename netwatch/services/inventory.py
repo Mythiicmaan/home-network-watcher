@@ -10,8 +10,8 @@ from sqlalchemy.orm import Session
 
 from netwatch import detect
 from netwatch.discovery.oui import VendorDB
-from netwatch.discovery.scan import DiscoveryResult
-from netwatch.models import Device, PortScan, ScanRun, Sighting
+from netwatch.discovery.scan import SELF_STATE, DiscoveryResult
+from netwatch.models import Alert, Device, PortScan, ScanRun, Sighting
 from netwatch.netutil import is_locally_administered
 from netwatch.services.common import (
     GATEWAY_IP_KEY,
@@ -144,7 +144,7 @@ def apply_discovery(
             s.flush()
             by_mac[obs.mac] = device
             report.new_device_ids.append(device.id)
-            if not baseline:
+            if not baseline and obs.state != SELF_STATE:  # never alert about itself
                 alert = _new_device_alert(s, device, now)
                 if alert:
                     report.alert_ids.append(alert.id)
@@ -156,6 +156,8 @@ def apply_discovery(
             trusted_gw is None or trusted_gw == obs.mac
         )
         s.add(Sighting(device_id=device.id, scan_run_id=run.id, ip=obs.ip, seen_at=now))
+        if obs.state == SELF_STATE:
+            _mark_this_pc(s, device, by_mac.values(), now)
     s.flush()
 
     if health.degraded:
@@ -180,6 +182,27 @@ def apply_discovery(
         if alert:
             report.alert_ids.append(alert.id)
     return report
+
+
+def _mark_this_pc(s: Session, pc: Device, devices, now: datetime) -> None:
+    """Flag the PC NetWatch runs on. Its port check runs against itself, where Windows
+    Firewall doesn't apply, so risky-port alerts raised before it was recognized are
+    acknowledged (the findings stay on its device page)."""
+    for d in devices:
+        if d.is_this_pc and d is not pc:
+            d.is_this_pc = False
+    if pc.is_this_pc:
+        return
+    pc.is_this_pc = True
+    for alert in s.scalars(
+        select(Alert).where(
+            Alert.device_id == pc.id,
+            Alert.kind == "risky_port",
+            Alert.acknowledged.is_(False),
+        )
+    ):
+        alert.acknowledged = True
+        alert.acknowledged_at = now
 
 
 # ---------------------------------------------------------------- alert text

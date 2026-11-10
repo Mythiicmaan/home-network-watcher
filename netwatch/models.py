@@ -15,6 +15,9 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
 )
+from sqlalchemy import (
+    false as sa_false,
+)
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 from netwatch.timeutil import utcnow
@@ -46,6 +49,9 @@ class Device(Base):
     last_ip: Mapped[str] = mapped_column(String(45), default="")
     is_gateway: Mapped[bool] = mapped_column(Boolean, default=False)
     in_baseline: Mapped[bool] = mapped_column(Boolean, default=False)
+    # The PC NetWatch runs on (its own home adapter). Its port check runs against itself,
+    # where Windows Firewall doesn't apply, so open ports there never raise alerts.
+    is_this_pc: Mapped[bool] = mapped_column(Boolean, default=False, server_default=sa_false())
 
     sightings: Mapped[list[Sighting]] = relationship(back_populates="device")
     port_scans: Mapped[list[PortScan]] = relationship(

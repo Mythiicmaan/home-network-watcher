@@ -5,7 +5,7 @@
 <section class="card">
   <div class="row">
     <div><h1>{{ dot(online) }} {{ d.display_name }}</h1>
-      {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private/randomized address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}</div>
+      {{ status_badge(d) }}{% if d.is_randomized_mac %} <span class="badge rnd">Private/randomized address</span>{% endif %}{% if d.is_gateway %} <span class="badge">Gateway</span>{% endif %}{% if d.is_this_pc %} <span class="badge">This PC (runs NetWatch)</span>{% endif %}</div>
     <div class="right small muted">{{ "Online now" if online else "Last seen " ~ (d.last_seen | ago) }}</div>
   </div>
   <dl class="facts">
@@ -58,6 +58,9 @@
   </div>
   {% if latest %}
     <p class="small muted">Checked {{ latest.finished_at | local }} at {{ latest.ip }} using {{ "Nmap (TCP connect)" if latest.method == "nmap" else "the built-in check" }}.{% if latest.error and latest.status == "done" %} Note: {{ latest.error }}{% endif %}</p>
+    {% if d.is_this_pc and latest.status == "done" %}
+      <p class="small muted">This is the PC NetWatch runs on, so it checks itself. Windows Firewall doesn't apply to a PC reaching itself, so ports listed here may be blocked for other devices. They never raise alerts.</p>
+    {% endif %}
     {% if latest.status == "failed" %}
       <p class="neg">The check failed: {{ latest.error }}</p>
     {% elif latest.risky_ports %}

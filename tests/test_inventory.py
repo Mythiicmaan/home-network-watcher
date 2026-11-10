@@ -7,6 +7,7 @@ from sqlalchemy import func, select
 
 from netwatch.models import Alert, Device, PortScan, ScanRun, Sighting
 from netwatch.ports import PortResult
+from netwatch.sample import SAMPLE_HOST_IP
 from netwatch.services import inventory, portcheck, reports
 from netwatch.services.common import GATEWAY_MAC_KEY, get_setting
 from tests.conftest import EVIL_MAC, GW_MAC, HOME, T0, VENDORS, scan
@@ -220,3 +221,50 @@ def test_failed_port_check_is_recorded(s):
     portcheck.start(s, pscan, T0)
     portcheck.finish(s, pscan, PortResult("nmap", error="Nmap failed: x"), T0)
     assert pscan.status == "failed" and "Nmap failed" in pscan.error
+
+
+# ---------------------------------------------------------------- this PC
+
+
+def this_pc(s):
+    return s.scalar(select(Device).where(Device.mac == HOME[SAMPLE_HOST_IP]))
+
+
+def test_the_pc_running_netwatch_is_recognized(s):
+    warm_up(s, 1)
+    assert this_pc(s).is_this_pc
+    assert s.scalar(select(func.count()).select_from(Device).where(Device.is_this_pc)) == 1
+
+
+def test_only_the_current_adapter_counts_as_this_pc(s):
+    t = warm_up(s, 2)
+    old = this_pc(s)
+    # A new network card: same IP, new MAC. The old entry stops being "this PC",
+    # and the new one doesn't raise a new-device alert (it's the monitoring PC itself).
+    apply(s, {**HOME, SAMPLE_HOST_IP: "02:00:00:00:00:0b"}, t)
+    new = s.scalar(select(Device).where(Device.mac == "02:00:00:00:00:0b"))
+    s.refresh(old)
+    assert new.is_this_pc and not old.is_this_pc
+    assert alerts(s, "new_device") == []
+
+
+def test_this_pc_never_gets_risky_port_alerts(s):
+    t = warm_up(s, 1)
+    pc = this_pc(s)
+    pscan, ids = _run_check(s, pc, [139, 445], t)
+    assert ids == [] and alerts(s, "risky_port") == []
+    # The findings are still recorded and shown on the device page.
+    assert [f["port"] for f in pscan.risky_ports] == [139, 445]
+
+
+def test_existing_risky_port_alerts_for_this_pc_are_acknowledged(s):
+    # Alerts raised before the app knew which device was this PC.
+    t = warm_up(s, 1)
+    pc = this_pc(s)
+    pc.is_this_pc = False
+    s.commit()
+    _, ids = _run_check(s, pc, [445], t)
+    assert len(ids) == 1
+    apply(s, HOME, t + STEP)
+    [a] = alerts(s, "risky_port")
+    assert pc.is_this_pc and a.acknowledged and a.acknowledged_at == t + STEP

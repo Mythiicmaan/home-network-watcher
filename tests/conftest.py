@@ -70,7 +70,10 @@ def scan(ip_to_mac: dict[str, str], at: datetime, *, vpn_up=None, error=None) ->
         finished_at=at + timedelta(seconds=15),
         choice=c,
         subnets=[c.subnet],
-        observations=[Observation(ip, mac, True, "reachable") for ip, mac in ip_to_mac.items()],
+        observations=[
+            Observation(ip, mac, True, "self" if ip == c.local_ip else "reachable")
+            for ip, mac in ip_to_mac.items()
+        ],
         error=error,
     )
 

@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from netwatch.models import Device, PortScan, ScanRun, Sighting
 from netwatch.ports import risky_findings
-from netwatch.sample import SAMPLE_DEVICES, SAMPLE_GATEWAY_IP, SAMPLE_SUBNET
+from netwatch.sample import SAMPLE_DEVICES, SAMPLE_GATEWAY_IP, SAMPLE_HOST_IP, SAMPLE_SUBNET
 from netwatch.services.common import GATEWAY_IP_KEY, GATEWAY_MAC_KEY, create_alert, set_setting
 from netwatch.services.inventory import device_facts
 
@@ -49,6 +49,7 @@ def build_sample_db(s: Session, now: datetime, days: int = 7, step_minutes: int 
             last_seen=first,
             last_ip=sd.ip,
             is_gateway=sd.ip == SAMPLE_GATEWAY_IP,
+            is_this_pc=sd.ip == SAMPLE_HOST_IP,
             in_baseline=not newcomer,
             names_checked_at=now,
         )
@@ -119,7 +120,7 @@ def build_sample_db(s: Session, now: datetime, days: int = 7, step_minutes: int 
             )
             a.sent_ok, a.sent_at, a.send_attempts = True, d.first_seen, 1
         for f in risky_findings(list(sd.open_ports)):
-            if sd.status == "ignored" or d.in_baseline and f["port"] in (80, 445):
+            if sd.status == "ignored" or d.is_this_pc or d.in_baseline and f["port"] in (80, 445):
                 continue
             a = create_alert(
                 s,
