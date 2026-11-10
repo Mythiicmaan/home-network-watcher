@@ -106,7 +106,7 @@ def back_url(request: Request, default: str = "/") -> str:
 
 def banners(request: Request, s: Session) -> list[dict]:
     """Problems that must never be silent: degraded scans, undelivered alerts, monitor errors."""
-    from netwatch.alerts.dispatch import delivery_status, senders_from_config
+    from netwatch.alerts.dispatch import channel_problem, delivery_status, senders_from_config
     from netwatch.services import reports
 
     out = []
@@ -116,9 +116,12 @@ def banners(request: Request, s: Session) -> list[dict]:
         out.append({"level": "warn", "text": last.error or "Scan degraded: is a VPN connected?"})
     elif last is not None and not last.ok:
         out.append({"level": "bad", "text": f"Last scan failed: {last.error}"})
+    problem = channel_problem(app.state.config)
+    if problem:
+        out.append({"level": "bad", "text": problem, "href": "/settings#alerts"})
     channel = bool(senders_from_config(app.state.config))
     status = delivery_status(s, channel)
-    if status.problem:
+    if status.problem and not (problem and not status.failing):
         out.append(
             {
                 "level": "bad" if status.failing else "warn",

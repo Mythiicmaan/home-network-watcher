@@ -39,13 +39,19 @@
 <section class="card" id="alerts">
   <h2>Alerts</h2>
   <dl class="facts">
-    <dt>Channel</dt><dd>{% if channel %}Email{% else %}<span class="warn">Not set up yet</span>{% endif %}</dd>
+    <dt>Channel</dt><dd>{% if channel %}Email to {{ email_to }} (Gmail){% elif email_problem %}<span class="neg">Email settings need fixing</span>{% else %}<span class="warn">Not set up yet</span>{% endif %}</dd>
     <dt>Waiting to send</dt><dd>{{ delivery.unsent }}{% if delivery.failing %} <span class="neg">({{ delivery.failing }} failing: {{ delivery.last_error }})</span>{% endif %}</dd>
     <dt>Quiet hours</dt><dd>{% if cfg.quiet_hours %}{{ cfg.quiet_hours[0].strftime("%H:%M") }} to {{ cfg.quiet_hours[1].strftime("%H:%M") }} (high-priority alerts still go out){% else %}Off{% endif %}</dd>
     <dt>Weekly digest</dt><dd>{{ ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][cfg.digest_weekday] }}s at {{ cfg.digest_hour }}:00</dd>
     <dt>Port-check new devices</dt><dd>{{ "Yes" if cfg.auto_port_check else "No" }}</dd>
   </dl>
-  {% if not channel %}<p class="small muted">Email alerts (Gmail) are set up in the next step. Until then, alerts are kept here and sent once a channel exists.</p>{% endif %}
+  {% if email_problem %}<p class="small neg">{{ email_problem }}</p>{% endif %}
+  {% if channel %}
+  <form method="post" action="/settings/test-alert"><button class="btn small" type="submit">Send test alert</button></form>
+  {% elif not email_problem %}
+  <p class="small muted">Add an <code>[alerts.email]</code> section to <code>config.toml</code> (see <code>config.example.toml</code>), then restart the app. Until then, alerts are kept here and sent once a channel exists.</p>
+  {% endif %}
+  <p class="small muted">When two or more alerts are waiting at once, they arrive as one summary email. High-priority alerts always arrive on their own.</p>
 </section>
 
 <section class="card" id="pin">

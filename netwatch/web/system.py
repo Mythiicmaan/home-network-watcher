@@ -104,7 +104,10 @@ def settings_page(request: Request, s: Session = Depends(get_db)):
         .order_by(Alert.id.desc())
         .limit(1)
     )
-    channel = bool(senders_from_config(cfg))
+    from netwatch.alerts.email import email_settings
+
+    email, email_problem = email_settings(cfg)
+    channel = email is not None
     return render(
         request,
         "settings.html",
@@ -118,6 +121,8 @@ def settings_page(request: Request, s: Session = Depends(get_db)):
             "pending_gw": pending_gw,
             "delivery": delivery_status(s, channel),
             "channel": channel,
+            "email_to": email.masked_to if email else "",
+            "email_problem": email_problem,
             "oui_entries": len(monitor.vendors) if monitor else None,
             "oui_problem": get_setting(s, OUI_PROBLEM_KEY) or "",
             "pin_set": auth.pin_is_set(s),
@@ -142,6 +147,18 @@ def settings_pin(
     s.flush()
     request.app.state.refresh_auth(s)
     return redirect("/settings#pin", "PIN saved. Phones will need to sign in again.")
+
+
+@router.post("/settings/test-alert")
+async def settings_test_alert(request: Request):
+    import asyncio
+
+    from netwatch.alerts.dispatch import send_test_alert
+
+    ok, detail = await asyncio.to_thread(send_test_alert, request.app.state.config)
+    if ok:
+        return redirect("/settings#alerts", "Test alert sent. Check your inbox (and spam).")
+    return redirect("/settings#alerts", f"Test alert FAILED: {detail}", error=True)
 
 
 @router.post("/scan-now")

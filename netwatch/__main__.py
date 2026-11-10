@@ -4,6 +4,7 @@ python -m netwatch                 run the app + monitor on 127.0.0.1:8766 (what
 python -m netwatch scan            run one discovery pass now and record it
 python -m netwatch set-pin         set or change the shared PIN
 python -m netwatch migrate         apply database migrations
+python -m netwatch test-alert      send a test email through the configured alert channel
 python -m netwatch sample-data     fill the data folder's database with the FAKE sample network
 python -m netwatch --sample        demo server on sample data (no scanning)
 """
@@ -54,7 +55,7 @@ def main(argv: list[str] | None = None) -> int:
         "command",
         nargs="?",
         default="serve",
-        choices=["serve", "scan", "set-pin", "migrate", "sample-data"],
+        choices=["serve", "scan", "set-pin", "migrate", "sample-data", "test-alert"],
     )
     parser.add_argument("--port", type=int, default=PORT)
     parser.add_argument("--sample", action="store_true", help="demo on sample data, no scanning")
@@ -86,6 +87,17 @@ def main(argv: list[str] | None = None) -> int:
             log_config=log_config(cfg.paths.logs),
         )
         return 0
+
+    if args.command == "test-alert":
+        from netwatch.alerts.dispatch import send_test_alert
+
+        ok, detail = send_test_alert(cfg)
+        print(
+            "Test alert sent. Check your inbox (and spam)."
+            if ok
+            else f"Test alert FAILED: {detail}"
+        )
+        return 0 if ok else 1
 
     engine = make_engine(cfg.paths.db)
     migrate(engine)

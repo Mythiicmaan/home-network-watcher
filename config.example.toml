@@ -30,7 +30,9 @@ quiet_hours = ""        # e.g. "22:00-07:00"; empty = off. Alerts wait until it 
 digest_day = "sunday"
 digest_hour = 18
 
-# Phase 3: email alerts through Gmail SMTP with an app password.
+# Email alerts through Gmail SMTP (STARTTLS) with a Google app password
+# (myaccount.google.com/apppasswords; needs 2-Step Verification). Remove the "# " from
+# these six lines and fill them in. Two or more waiting alerts arrive as one summary email.
 # [alerts.email]
 # smtp_host = "smtp.gmail.com"
 # smtp_port = 587

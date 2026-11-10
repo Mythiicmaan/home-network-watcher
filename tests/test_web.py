@@ -309,3 +309,54 @@ def test_phone_needs_pin(client, app):
 def test_login_page_is_public(app):
     with phone_client(app) as phone:
         assert phone.get("/login").status_code == 200
+
+
+# ---------------------------------------------------------------- phase 3: email
+
+
+EMAIL_TOML = """
+[alerts.email]
+smtp_host = "smtp.gmail.com"
+smtp_port = 587
+username = "alex.sample@gmail.com"
+app_password = "abcd efgh ijkl mnop"
+to = "alex.sample@gmail.com"
+"""
+
+
+def test_settings_shows_email_channel_and_test_button(tmp_path, monkeypatch):
+    (tmp_path / "config.toml").write_text(EMAIL_TOML, encoding="utf-8")
+    a = create_app(Paths(tmp_path), run_monitor=False, sample=True)
+    sent = []
+    monkeypatch.setattr(
+        "netwatch.alerts.dispatch.send_test_alert", lambda cfg: (sent.append(1) or True, "")
+    )
+    with local_client(a) as c:
+        r = c.get("/settings")
+        assert "Email to a***@gmail.com" in r.text and "Send test alert" in r.text
+        assert "abcd" not in r.text  # never shows the password
+        r = c.post("/settings/test-alert")
+        assert "Test alert sent" in r.text and sent == [1]
+
+
+def test_test_alert_failure_is_loud(tmp_path, monkeypatch):
+    (tmp_path / "config.toml").write_text(EMAIL_TOML, encoding="utf-8")
+    a = create_app(Paths(tmp_path), run_monitor=False, sample=True)
+    monkeypatch.setattr(
+        "netwatch.alerts.dispatch.send_test_alert",
+        lambda cfg: (False, "Gmail rejected the sign-in."),
+    )
+    with local_client(a) as c:
+        r = c.post("/settings/test-alert")
+        assert "Test alert FAILED" in r.text and 'class="toast error"' in r.text
+
+
+def test_incomplete_email_settings_show_a_banner(tmp_path):
+    (tmp_path / "config.toml").write_text(
+        EMAIL_TOML.replace("alex.sample@gmail.com", "you@example.com"), encoding="utf-8"
+    )
+    a = create_app(Paths(tmp_path), run_monitor=False, sample=True)
+    with local_client(a) as c:
+        r = c.get("/")
+        assert "Email settings in config.toml need fixing" in r.text
+        assert "still the example address" in r.text

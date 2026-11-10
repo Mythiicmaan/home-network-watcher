@@ -125,3 +125,59 @@ def test_quiet_hours_hold_all_but_high_priority(s):
     assert r.sent == [high.id] and r.held_for_quiet_hours == 1
     r2 = deliver_pending(s, [sender], T0 + timedelta(hours=8), base_url=BASE)
     assert len(r2.sent) == 1
+
+
+# ---------------------------------------------------------------- summary emails
+
+
+def test_several_waiting_alerts_go_as_one_summary(s):
+    a1 = make(s, key="new_device:a")
+    a2 = make(s, key="new_device:b")
+    a3 = create_alert(
+        s,
+        kind="risky_port",
+        dedup_key="risky_port:1:23",
+        title="Risky port open on TV: 23",
+        message="m",
+        severity="warning",
+        now=T0,
+    )
+    sender = RecordingSender()
+    r = deliver_pending(s, [sender], T0, base_url=BASE)
+    assert sorted(r.sent) == sorted([a1.id, a2.id, a3.id])
+    [msg] = sender.sent
+    assert msg.subject == f"{SUBJECT_PREFIX} 3 alerts: 2 new devices, 1 risky port"
+    assert "Risky port open on TV: 23" in msg.text and "New device joined" in msg.html
+    assert all(a.sent_ok for a in (a1, a2, a3))
+
+
+def test_high_priority_and_digest_are_never_folded_into_a_summary(s):
+    make(s, key="a")
+    make(s, key="b")
+    high = make(s, key="gw", severity="high")
+    digest = create_alert(
+        s, kind="digest", dedup_key="digest:x", title="Weekly", message="m", now=T0
+    )
+    sender = RecordingSender()
+    deliver_pending(s, [sender], T0, base_url=BASE)
+    subjects = [m.subject for m in sender.sent]
+    assert len(subjects) == 3
+    assert any("HIGH PRIORITY" in x for x in subjects)
+    assert any("Weekly" in x for x in subjects)
+    assert any("2 alerts" in x for x in subjects)
+    assert high.sent_ok and digest.sent_ok
+
+
+def test_single_waiting_alert_is_sent_normally(s):
+    make(s)
+    sender = RecordingSender()
+    deliver_pending(s, [sender], T0, base_url=BASE)
+    assert sender.sent[0].subject == f"{SUBJECT_PREFIX} New device joined: Example"
+
+
+def test_failed_summary_marks_every_alert_for_retry(s):
+    a1, a2 = make(s, key="a"), make(s, key="b")
+    r = deliver_pending(s, [RecordingSender(fail_times=1)], T0, base_url=BASE)
+    assert sorted(r.failed) == sorted([a1.id, a2.id])
+    assert a1.next_attempt_at == a2.next_attempt_at == T0 + next_delay(1)
+    assert "SMTP timed out" in a1.last_error
