@@ -51,7 +51,8 @@ localhost_skip_pin = true   # the desktop itself (http://localhost:8766) skips t
 session_days = 90
 
 [backup]
-# Phase 4: nightly backups (2:30 AM). If the drive is missing the app shows a banner.
+# Nightly backups at 2:30 AM (30 daily + 12 monthly copies). If the drive is missing,
+# nothing is written elsewhere: a banner shows, one email goes out per day, and it retries.
 # dir = 'X:\Backups\NetWatch'
 
 [oui]

@@ -23,6 +23,35 @@ Data lives in `%NETWATCH_DATA_DIR%` (default `C:\NetWatchData`): the database, `
 (copy `config.example.toml`), logs, and the downloaded vendor list. The first good scan is a
 silent baseline; after that, every never-seen device raises one alert.
 
+## Run it 24/7
+
+From an **admin** PowerShell window, once:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1
+```
+
+It creates a standard (non-admin) account `netwatchsvc` and a scheduled task that starts the
+app at boot, before anyone signs in, and restarts it if it crashes. It gives that account
+Modify rights on the data and backup folders only. It also makes a first backup, waits for a
+first scan as the service account, and sets up phone access:
+`tailscale serve --bg --https=8443 http://127.0.0.1:8766`. If another app is already served
+on HTTPS port 443, it's checked before and after and left as it was.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\check_service.ps1   # status (no admin needed)
+powershell -ExecutionPolicy Bypass -File .\scripts\restart.ps1         # pick up new code
+powershell -ExecutionPolicy Bypass -File .\scripts\restore.ps1 <backup .db file>
+powershell -ExecutionPolicy Bypass -File .\scripts\uninstall.ps1       # undo (data untouched)
+```
+
+**Backups** run nightly at 2:30 AM to `[backup] dir` in `config.toml`, using SQLite's online
+backup API. Each copy is integrity-checked; 30 daily and 12 monthly copies are kept. If the
+drive is missing, nothing is written anywhere else: the app shows a banner, `/health` reports
+it, one email goes out per day, and it retries hourly. **Back up now** is in Settings.
+Database migrations run with SQLite foreign keys off, so rebuilding a table never
+cascade-deletes linked rows.
+
 ## Development
 
 ```powershell
