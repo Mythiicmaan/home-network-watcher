@@ -21,7 +21,10 @@ param(
 $boot = (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
 $signIn = (Get-Process -Name explorer -ErrorAction SilentlyContinue | Sort-Object StartTime | Select-Object -First 1).StartTime
 Write-Host "PC started:        $boot"
-Write-Host "You signed in:     $signIn"
+# This is when your Windows session began, not when you typed your PIN: after a restart,
+# Windows can sign you in on its own and wait at the lock screen ("Use my sign-in info to
+# automatically finish setting up after an update or restart" in Sign-in options).
+Write-Host "Session started:   $signIn  (Windows may do this itself after a restart)"
 
 try {
     $info = Get-ScheduledTaskInfo -TaskName $TaskName -ErrorAction Stop
@@ -39,7 +42,7 @@ if ($listener) {
     if (-not $owner) { $owner = 'another account (run as admin to see which)' }
     Write-Host "App process:       running since $($proc.CreationDate) as $owner"
     if ($signIn -and $proc.CreationDate -lt $signIn) {
-        Write-Host '  -> Started BEFORE you signed in: startup without sign-in works.' -ForegroundColor Green
+        Write-Host '  -> Started before your session: startup without sign-in works.' -ForegroundColor Green
     }
 } else {
     Write-Host "App process:       nothing is listening on port $Port" -ForegroundColor Red
