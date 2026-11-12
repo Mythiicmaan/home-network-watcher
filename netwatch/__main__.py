@@ -5,6 +5,8 @@ python -m netwatch scan            run one discovery pass now and record it
 python -m netwatch set-pin         set or change the shared PIN
 python -m netwatch migrate         apply database migrations
 python -m netwatch test-alert      send a test email through the configured alert channel
+python -m netwatch backup          back up the database now ([backup] dir in config.toml)
+python -m netwatch restore FILE    replace the database with a backup (stop the app first)
 python -m netwatch sample-data     fill the data folder's database with the FAKE sample network
 python -m netwatch --sample        demo server on sample data (no scanning)
 """
@@ -55,8 +57,19 @@ def main(argv: list[str] | None = None) -> int:
         "command",
         nargs="?",
         default="serve",
-        choices=["serve", "scan", "set-pin", "migrate", "sample-data", "test-alert"],
+        choices=[
+            "serve",
+            "scan",
+            "set-pin",
+            "migrate",
+            "sample-data",
+            "test-alert",
+            "backup",
+            "restore",
+        ],
     )
+    parser.add_argument("file", nargs="?", help="backup file (restore only)")
+    parser.add_argument("--yes", action="store_true", help="restore without asking")
     parser.add_argument("--port", type=int, default=PORT)
     parser.add_argument("--sample", action="store_true", help="demo on sample data, no scanning")
     args = parser.parse_args(argv)
@@ -99,9 +112,41 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 0 if ok else 1
 
+    if args.command == "restore":
+        from netwatch import backup
+
+        if not args.file:
+            print("Usage: python -m netwatch restore <backup file>")
+            return 1
+        src = Path(args.file)
+        if not args.yes:
+            print(f"This replaces {cfg.paths.db} with {src}. Stop the app first.")
+            if input("Type RESTORE to continue: ").strip() != "RESTORE":
+                print("Cancelled. Nothing changed.")
+                return 1
+        try:
+            aside = backup.restore(src, cfg.paths.db)
+        except backup.BackupError as exc:
+            print(f"Restore FAILED: {exc}")
+            return 1
+        print(f"Restored. The previous database was kept as {aside}")
+        return 0
+
     engine = make_engine(cfg.paths.db)
     migrate(engine)
     factory = make_sessionmaker(engine)
+
+    if args.command == "backup":
+        from netwatch import backup
+
+        with session_scope(factory) as s:
+            try:
+                result = backup.backup_and_record(s, cfg.paths.db, cfg.backup_dir)
+            except backup.BackupError as exc:
+                print(f"Backup FAILED: {exc}")
+                return 1
+        print(f"Backed up to {result.file}")
+        return 0
 
     if args.command == "migrate":
         print(f"Database is up to date: {cfg.paths.db}")

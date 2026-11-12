@@ -129,6 +129,11 @@ def banners(request: Request, s: Session) -> list[dict]:
                 "href": "/settings#alerts",
             }
         )
+    from netwatch import backup
+
+    backup_status = backup.status(s, app.state.config.backup_dir)
+    if backup_status.problem:
+        out.append({"level": "bad", "text": backup_status.problem, "href": "/settings#data"})
     monitor = getattr(app.state, "monitor", None)
     if monitor is not None and monitor.state.last_error:
         out.append({"level": "bad", "text": f"Monitor error: {monitor.state.last_error}"})

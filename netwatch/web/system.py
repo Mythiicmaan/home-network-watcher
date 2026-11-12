@@ -128,8 +128,37 @@ def settings_page(request: Request, s: Session = Depends(get_db)):
             "pin_set": auth.pin_is_set(s),
             "is_local": request.state.is_local,
             "device_count": len(list(s.scalars(select(Device.id)))),
+            "backup": _backup_status(s, cfg),
         },
     )
+
+
+def _backup_status(s: Session, cfg):
+    from netwatch import backup
+
+    return backup.status(s, cfg.backup_dir)
+
+
+@router.post("/settings/backup")
+async def settings_backup(request: Request):
+    import asyncio
+
+    from netwatch import backup
+    from netwatch.db import session_scope
+
+    cfg = request.app.state.config
+    if cfg.backup_dir is None:
+        raise NetwatchError("No backup folder is set up ([backup] dir in config.toml).")
+
+    def run():
+        with session_scope(request.app.state.sessionmaker) as s:
+            return backup.backup_and_record(s, cfg.paths.db, cfg.backup_dir)
+
+    try:
+        result = await asyncio.to_thread(run)
+    except backup.BackupError as exc:
+        return redirect("/settings#data", f"Backup FAILED: {exc}", error=True)
+    return redirect("/settings#data", f"Backed up to {result.file.name}.")
 
 
 @router.post("/settings/pin")
@@ -297,6 +326,19 @@ def health(request: Request, s: Session = Depends(get_db)):
         if last
         else None,
         "alerts": {"channel_configured": channel, "unsent": st.unsent, "failing": st.failing},
+        "backup": _backup_health(s, request.app.state.config),
+    }
+
+
+def _backup_health(s: Session, cfg) -> dict:
+    from netwatch import backup
+
+    bs = backup.status(s, cfg.backup_dir)
+    return {
+        "configured": bs.configured,
+        "ok": bs.ok,
+        "last_ok_at": bs.last_ok_at.isoformat(timespec="seconds") if bs.last_ok_at else None,
+        "problem": bs.problem,
     }
 
 

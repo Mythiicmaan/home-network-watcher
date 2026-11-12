@@ -76,3 +76,29 @@ def test_sample_data_refuses_the_real_data_folder(monkeypatch):
 
     monkeypatch.setenv("NETWATCH_DATA_DIR", DEFAULT_DATA_DIR)
     assert main(["sample-data"]) == 1
+
+
+def test_monitor_backs_up_when_due_and_records_failures(engine, tmp_path):
+    from datetime import datetime
+    from pathlib import Path
+
+    from netwatch import backup
+    from netwatch.services.common import set_setting
+
+    folder = tmp_path / "backups"
+    cfg = Config(paths=Paths(tmp_path), raw={"backup": {"dir": str(folder)}})
+    mon = Monitor(cfg, make_sessionmaker(engine), probe=FakeProbe(), allow_sample=True)
+    assert mon.backup_if_due(datetime.now())  # never backed up: right away
+    assert len(list(folder.glob("netwatch-*.db"))) == 1
+    assert not mon.backup_if_due(datetime.now())  # done today
+
+    # A missing drive is recorded (banner, email), not raised, so the loop keeps going.
+    letter = next(c for c in "QRSTUVWXYZ" if not Path(f"{c}:\\").exists())
+    cfg.raw["backup"]["dir"] = f"{letter}:\\Backups\\NetWatch"
+    with make_sessionmaker(engine)() as s:
+        set_setting(s, backup.OK_KEY, "2020-01-01T02:30:00")  # long ago -> due
+        s.commit()
+    assert mon.backup_if_due(datetime.now())
+    with make_sessionmaker(engine)() as s:
+        assert "not connected" in backup.status(s, cfg.backup_dir).problem
+        assert s.scalar(select(Alert).where(Alert.kind == "backup_failed")) is not None

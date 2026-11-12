@@ -77,7 +77,14 @@
     <dt>Devices</dt><dd>{{ device_count }}</dd>
     <dt>Vendor list</dt><dd>{% if oui_entries is not none %}{{ "{:,}".format(oui_entries) }} entries{% else %}—{% endif %}{% if oui_problem %} <span class="neg small">{{ oui_problem }}</span>{% endif %}</dd>
     <dt>Backups</dt><dd>{% if cfg.backup_dir %}{{ cfg.backup_dir }}{% else %}<span class="warn">Not set up yet</span>{% endif %}</dd>
+    {% if backup.configured %}
+    <dt>Last backup</dt><dd>{% if backup.last_ok_at %}{{ backup.last_ok_at.strftime("%b %d, %I:%M %p") }}{% else %}never{% endif %}{% if backup.problem %} <span class="neg small">{{ backup.problem }}</span>{% endif %}</dd>
+    {% endif %}
   </dl>
-  <a class="btn small" href="/export.csv" hx-boost="false">Download device inventory (CSV)</a>
+  {% if backup.configured %}<p class="small muted">Nightly at 2:30 AM: 30 daily and 12 monthly copies.</p>{% endif %}
+  <div class="row">
+    {% if backup.configured %}<form method="post" action="/settings/backup"><button class="btn small" type="submit">Back up now</button></form>{% endif %}
+    <a class="btn small" href="/export.csv" hx-boost="false">Download device inventory (CSV)</a>
+  </div>
 </section>
 {% endblock %}

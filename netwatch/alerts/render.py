@@ -43,6 +43,7 @@ KIND_NOUNS = {
     "ip_conflict": ("IP conflict", "IP conflicts"),
     "gateway_mac_change": ("gateway change", "gateway changes"),
     "digest": ("digest", "digests"),
+    "backup_failed": ("failed backup", "failed backups"),
 }
 
 

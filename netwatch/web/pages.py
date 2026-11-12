@@ -24,6 +24,7 @@ KIND_LABELS = {
     "ip_conflict": "IP conflict",
     "risky_port": "Risky port",
     "digest": "Weekly digest",
+    "backup_failed": "Backup failed",
 }
 
 

@@ -74,6 +74,8 @@ class Monitor:
             asyncio.create_task(self._port_loop(), name="netwatch-ports"),
             asyncio.create_task(self._alert_loop(), name="netwatch-alerts"),
         ]
+        if self.cfg.backup_dir is not None:
+            self._tasks.append(asyncio.create_task(self._backup_loop(), name="netwatch-backup"))
 
     async def stop(self) -> None:
         self.state.running = False
@@ -267,6 +269,30 @@ class Monitor:
         with session_scope(self.factory) as s:
             deliver_pending(s, senders, utcnow(), base_url=cfg.public_base_url, quiet=quiet)
 
+    # ------------------------------------------------------------ backups
+    def backup_if_due(self, now: datetime | None = None) -> bool:
+        """Back up when due (2:30 AM, or catch-up). Failures are recorded, never raised."""
+        from netwatch import backup
+
+        cfg = self.cfg
+        with session_scope(self.factory) as s:
+            if not backup.due(s, now or datetime.now()):
+                return False
+            # A failure is recorded (banner, /health, one email a day) and retried hourly.
+            with contextlib.suppress(backup.BackupError):
+                backup.backup_and_record(s, cfg.paths.db, cfg.backup_dir)
+        return True
+
+    async def _backup_loop(self) -> None:
+        """Checks once a minute whether the nightly backup is due."""
+        while True:
+            try:
+                await asyncio.to_thread(self.backup_if_due)
+            except Exception:
+                log.exception("Backup loop error")
+            await asyncio.sleep(60)
+
+    # ------------------------------------------------------------ alerts
     async def _alert_loop(self) -> None:
         while True:
             try:

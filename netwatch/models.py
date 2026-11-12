@@ -23,7 +23,14 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from netwatch.timeutil import utcnow
 
 DEVICE_STATUSES = ("unknown", "known", "ignored")
-ALERT_KINDS = ("new_device", "gateway_mac_change", "ip_conflict", "risky_port", "digest")
+ALERT_KINDS = (
+    "new_device",
+    "gateway_mac_change",
+    "ip_conflict",
+    "risky_port",
+    "digest",
+    "backup_failed",
+)
 
 
 class Base(DeclarativeBase):
