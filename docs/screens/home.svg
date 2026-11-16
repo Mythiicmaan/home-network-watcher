@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="700" viewBox="0 0 375 700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Dashboard: scan health, devices that need a look, risky ports open">
+  <title>Dashboard: scan health, devices that need a look, risky ports open</title>
+  <rect x="0" y="0" width="375" height="700" rx="0" fill="#f4f6f8"/>
+  <text x="16" y="30" font-size="18" font-weight="700" fill="#0f172a" text-anchor="start">Home Network</text>
+  <line x1="0" y1="46" x2="375" y2="46" stroke="#e2e8f0"/>
+  <rect x="16" y="60" width="343" height="120" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="30" y="82" font-size="10" font-weight="600" fill="#64748b" text-anchor="start">SCAN HEALTH</text>
+  <circle cx="35" cy="102" r="5" fill="#15803d"/>
+  <text x="46" y="107" font-size="17" font-weight="700" fill="#0f172a" text-anchor="start">Healthy</text>
+  <text x="345" y="86" font-size="11" font-weight="400" fill="#64748b" text-anchor="end">Last scan 1 min ago</text>
+  <text x="345" y="102" font-size="11" font-weight="400" fill="#64748b" text-anchor="end">8 devices found</text>
+  <text x="30" y="138" font-size="9" font-weight="600" fill="#64748b" text-anchor="start">ONLINE NOW</text>
+  <text x="30" y="164" font-size="22" font-weight="700" fill="#0f172a" text-anchor="start">9</text>
+  <text x="140" y="138" font-size="9" font-weight="600" fill="#64748b" text-anchor="start">UNKNOWN</text>
+  <text x="140" y="164" font-size="22" font-weight="700" fill="#b45309" text-anchor="start">2</text>
+  <text x="250" y="138" font-size="9" font-weight="600" fill="#64748b" text-anchor="start">OPEN ALERTS</text>
+  <text x="250" y="164" font-size="22" font-weight="700" fill="#b91c1c" text-anchor="start">4</text>
+  <rect x="16" y="194" width="343" height="210" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="30" y="222" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">Needs a look</text>
+  <text x="345" y="222" font-size="12" font-weight="400" fill="#2563eb" text-anchor="end">All unknown →</text>
+  <line x1="16" y1="240" x2="359" y2="240" stroke="#e2e8f0"/>
+  <circle cx="34" cy="260" r="4" fill="#15803d"/>
+  <text x="44" y="264" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Example IoT Modules</text>
+  <text x="44" y="282" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Example IoT Modules · 192.0.2.77 · first seen 9 day…</text>
+  <rect x="222" y="288" width="55" height="28" rx="9" fill="#2563eb"/>
+  <text x="249.5" y="306" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">Known</text>
+  <rect x="283" y="288" width="62" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="314.0" y="306" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Ignore</text>
+  <line x1="16" y1="322" x2="359" y2="322" stroke="#e2e8f0"/>
+  <circle cx="34" cy="342" r="4" fill="#15803d"/>
+  <text x="44" y="346" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Unnamed device</text>
+  <rect x="162" y="333" width="96.0" height="16" rx="8" fill="#eef2f7"/>
+  <text x="168" y="345" font-size="10" font-weight="600" fill="#2563eb" text-anchor="start">Private address</text>
+  <text x="44" y="364" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Unknown vendor · 192.0.2.88 · first seen 10 days ago</text>
+  <rect x="222" y="370" width="55" height="28" rx="9" fill="#2563eb"/>
+  <text x="249.5" y="388" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">Known</text>
+  <rect x="283" y="370" width="62" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="314.0" y="388" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Ignore</text>
+  <rect x="16" y="418" width="343" height="184" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="30" y="446" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">Risky ports open</text>
+  <line x1="16" y1="464" x2="359" y2="464" stroke="#e2e8f0"/>
+  <text x="30" y="484" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Gateway</text>
+  <text x="30" y="501" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">80 Unencrypted web page (HTTP)</text>
+  <rect x="329" y="479" width="17.6" height="16" rx="8" fill="#fef3c7"/>
+  <text x="335" y="491" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">1</text>
+  <line x1="16" y1="510" x2="359" y2="510" stroke="#e2e8f0"/>
+  <text x="30" y="530" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Sam's Laptop</text>
+  <text x="30" y="547" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">445 SMB (file sharing)</text>
+  <rect x="329" y="525" width="17.6" height="16" rx="8" fill="#fef3c7"/>
+  <text x="335" y="537" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">1</text>
+  <line x1="16" y1="556" x2="359" y2="556" stroke="#e2e8f0"/>
+  <text x="30" y="576" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">Living Room TV</text>
+  <text x="30" y="593" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">8080 Unencrypted web page (HTTP alt)</text>
+  <rect x="329" y="571" width="17.6" height="16" rx="8" fill="#fef3c7"/>
+  <text x="335" y="583" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">1</text>
+  <text x="187.5" y="626" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">12 devices in the inventory · 10 new this week</text>
+  <rect x="0" y="644" width="375" height="56" rx="0" fill="#ffffff"/>
+  <line x1="0" y1="644" x2="375" y2="644" stroke="#e2e8f0"/>
+  <circle cx="46.875" cy="662" r="4" fill="#2563eb"/>
+  <text x="46.875" y="684" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">Home</text>
+  <circle cx="140.625" cy="662" r="4" fill="#64748b"/>
+  <text x="140.625" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Devices</text>
+  <circle cx="234.375" cy="662" r="4" fill="#64748b"/>
+  <text x="234.375" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Alerts</text>
+  <circle cx="328.125" cy="662" r="4" fill="#64748b"/>
+  <text x="328.125" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Settings</text>
+</svg>

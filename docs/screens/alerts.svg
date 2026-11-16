@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="700" viewBox="0 0 375 700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Alerts: new devices and risky ports, each sent once, with Acknowledge">
+  <title>Alerts: new devices and risky ports, each sent once, with Acknowledge</title>
+  <rect x="0" y="0" width="375" height="700" rx="0" fill="#f4f6f8"/>
+  <text x="16" y="30" font-size="18" font-weight="700" fill="#0f172a" text-anchor="start">Alerts</text>
+  <line x1="0" y1="46" x2="375" y2="46" stroke="#e2e8f0"/>
+  <rect x="16" y="58" width="56" height="28" rx="14" fill="#2563eb"/>
+  <text x="44.0" y="76" font-size="12" font-weight="600" fill="#fff" text-anchor="middle">Open</text>
+  <rect x="78" y="58" width="56" height="28" rx="14" fill="#eef2f7"/>
+  <text x="106.0" y="76" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">All</text>
+  <rect x="16" y="98" width="343" height="88" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="109" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="121" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Warning</text>
+  <text x="87.19999999999999" y="121" font-size="12" font-weight="700" fill="#0f172a" text-anchor="start">Risky port open on Living Room TV: 8080…</text>
+  <text x="30" y="142" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Risky port · Tue 6:06 PM · sent</text>
+  <text x="30" y="164" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">A second unencrypted web/admin page.</text>
+  <rect x="16" y="196" width="343" height="88" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="207" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="219" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Warning</text>
+  <text x="87.19999999999999" y="219" font-size="12" font-weight="700" fill="#0f172a" text-anchor="start">Risky port open on Example IoT Modules:…</text>
+  <text x="30" y="240" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Risky port · Sun 4:06 AM · sent</text>
+  <text x="30" y="262" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">UPnP lets devices open holes in…</text>
+  <rect x="248" y="244" width="97" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="296.5" y="262" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Acknowledge</text>
+  <rect x="16" y="294" width="343" height="88" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="305" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="317" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Warning</text>
+  <text x="87.19999999999999" y="317" font-size="12" font-weight="700" fill="#0f172a" text-anchor="start">Risky port open on Example IoT Modules:…</text>
+  <text x="30" y="338" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Risky port · Sun 4:06 AM · sent</text>
+  <text x="30" y="360" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">An admin or setup page without …</text>
+  <rect x="248" y="342" width="97" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="296.5" y="360" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Acknowledge</text>
+  <rect x="16" y="392" width="343" height="88" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="403" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="415" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Warning</text>
+  <text x="87.19999999999999" y="415" font-size="12" font-weight="700" fill="#0f172a" text-anchor="start">New device joined: Example IoT Modules</text>
+  <text x="30" y="436" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">New device · Sun 4:00 AM · sent</text>
+  <text x="30" y="458" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">A device that has never been se…</text>
+  <rect x="248" y="440" width="97" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="296.5" y="458" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Acknowledge</text>
+  <rect x="16" y="490" width="343" height="88" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="501" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="513" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Warning</text>
+  <text x="87.19999999999999" y="513" font-size="12" font-weight="700" fill="#0f172a" text-anchor="start">New device joined: Unknown device</text>
+  <text x="30" y="534" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">New device · Sat 8:00 AM · sent</text>
+  <text x="30" y="556" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">A device that has never been se…</text>
+  <rect x="248" y="538" width="97" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="296.5" y="556" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Acknowledge</text>
+  <rect x="0" y="644" width="375" height="56" rx="0" fill="#ffffff"/>
+  <line x1="0" y1="644" x2="375" y2="644" stroke="#e2e8f0"/>
+  <circle cx="46.875" cy="662" r="4" fill="#64748b"/>
+  <text x="46.875" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Home</text>
+  <circle cx="140.625" cy="662" r="4" fill="#64748b"/>
+  <text x="140.625" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Devices</text>
+  <circle cx="234.375" cy="662" r="4" fill="#2563eb"/>
+  <text x="234.375" y="684" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">Alerts</text>
+  <circle cx="328.125" cy="662" r="4" fill="#64748b"/>
+  <text x="328.125" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Settings</text>
+</svg>

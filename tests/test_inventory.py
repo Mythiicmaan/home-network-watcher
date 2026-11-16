@@ -253,8 +253,10 @@ def test_this_pc_never_gets_risky_port_alerts(s):
     pc = this_pc(s)
     pscan, ids = _run_check(s, pc, [139, 445], t)
     assert ids == [] and alerts(s, "risky_port") == []
-    # The findings are still recorded and shown on the device page.
+    # The findings are still recorded and shown on the device page...
     assert [f["port"] for f in pscan.risky_ports] == [139, 445]
+    # ...but not in the dashboard's "Risky ports open" list or the weekly digest.
+    assert pc.id not in [d.id for d, _ in reports.latest_risky(s)]
 
 
 def test_existing_risky_port_alerts_for_this_pc_are_acknowledged(s):

@@ -12,14 +12,10 @@
       "port": 8768
     },
     {
-      "name": "netwatch",
-      "runtimeExecutable": "powershell",
-      "runtimeArgs": [
-        "-NoProfile",
-        "-Command",
-        "./.venv/Scripts/python.exe -m netwatch"
-      ],
-      "port": 8766
+      "name": "readme-screens",
+      "runtimeExecutable": "./.venv/Scripts/python.exe",
+      "runtimeArgs": ["-m", "http.server", "8769", "--bind", "127.0.0.1", "--directory", "docs/screens"],
+      "port": 8769
     }
   ]
 }

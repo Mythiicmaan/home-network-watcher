@@ -59,7 +59,8 @@ def returning_unknowns(s: Session, now: datetime, days: int = 14) -> list[tuple[
 
 
 def latest_risky(s: Session) -> list[tuple[Device, PortScan]]:
-    """Devices whose most recent finished port check found risky ports (ignored excluded)."""
+    """Devices whose most recent finished port check found risky ports. Ignored devices and
+    this PC are left out (this PC checks itself, where Windows Firewall doesn't apply)."""
     latest = (
         select(PortScan.device_id, func.max(PortScan.id).label("pid"))
         .where(PortScan.status == "done")
@@ -70,7 +71,7 @@ def latest_risky(s: Session) -> list[tuple[Device, PortScan]]:
         select(Device, PortScan)
         .join(latest, latest.c.device_id == Device.id)
         .join(PortScan, PortScan.id == latest.c.pid)
-        .where(Device.status != "ignored")
+        .where(Device.status != "ignored", Device.is_this_pc.is_(False))
     )
     return [(d, p) for d, p in rows if p.risky_ports]
 

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="700" viewBox="0 0 375 700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Device list with status, private-address and gateway badges, masked MACs">
+  <title>Device list with status, private-address and gateway badges, masked MACs</title>
+  <rect x="0" y="0" width="375" height="700" rx="0" fill="#f4f6f8"/>
+  <text x="16" y="30" font-size="18" font-weight="700" fill="#0f172a" text-anchor="start">Devices</text>
+  <line x1="0" y1="46" x2="375" y2="46" stroke="#e2e8f0"/>
+  <rect x="16" y="58" width="343" height="36" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="28" y="81" font-size="13" font-weight="400" fill="#64748b" text-anchor="start">Search name, vendor, IP, MAC…</text>
+  <rect x="16" y="106" width="343" height="464" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="34" cy="127" r="4" fill="#15803d"/>
+  <text x="46" y="131" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Example IoT Modules</text>
+  <text x="347" y="131" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.77</text>
+  <rect x="46" y="139" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="52" y="151" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Unknown</text>
+  <text x="347" y="152" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:01</text>
+  <line x1="16" y1="164" x2="359" y2="164" stroke="#e2e8f0"/>
+  <circle cx="34" cy="185" r="4" fill="#15803d"/>
+  <text x="46" y="189" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Unnamed device</text>
+  <text x="347" y="189" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.88</text>
+  <rect x="46" y="197" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="52" y="209" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Unknown</text>
+  <rect x="101.19999999999999" y="197" width="96.0" height="16" rx="8" fill="#eef2f7"/>
+  <text x="107.19999999999999" y="209" font-size="10" font-weight="600" fill="#2563eb" text-anchor="start">Private address</text>
+  <text x="347" y="210" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:02</text>
+  <line x1="16" y1="222" x2="359" y2="222" stroke="#e2e8f0"/>
+  <circle cx="34" cy="243" r="4" fill="#15803d"/>
+  <text x="46" y="247" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Gateway</text>
+  <text x="347" y="247" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.1</text>
+  <rect x="46" y="255" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="267" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <rect x="90.0" y="255" width="51.199999999999996" height="16" rx="8" fill="#eef2f7"/>
+  <text x="96.0" y="267" font-size="10" font-weight="600" fill="#64748b" text-anchor="start">Gateway</text>
+  <text x="347" y="268" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:01</text>
+  <line x1="16" y1="280" x2="359" y2="280" stroke="#e2e8f0"/>
+  <circle cx="34" cy="301" r="4" fill="#15803d"/>
+  <text x="46" y="305" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Home Desktop · Alex</text>
+  <text x="347" y="305" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.10</text>
+  <rect x="46" y="313" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="325" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <rect x="90.0" y="313" width="51.199999999999996" height="16" rx="8" fill="#eef2f7"/>
+  <text x="96.0" y="325" font-size="10" font-weight="600" fill="#64748b" text-anchor="start">This PC</text>
+  <text x="347" y="326" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:0a</text>
+  <line x1="16" y1="338" x2="359" y2="338" stroke="#e2e8f0"/>
+  <circle cx="34" cy="359" r="4" fill="#15803d"/>
+  <text x="46" y="363" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Alex's Phone · Alex</text>
+  <text x="347" y="363" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.21</text>
+  <rect x="46" y="371" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="383" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <rect x="90.0" y="371" width="96.0" height="16" rx="8" fill="#eef2f7"/>
+  <text x="96.0" y="383" font-size="10" font-weight="600" fill="#2563eb" text-anchor="start">Private address</text>
+  <text x="347" y="384" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:01</text>
+  <line x1="16" y1="396" x2="359" y2="396" stroke="#e2e8f0"/>
+  <circle cx="34" cy="417" r="4" fill="#15803d"/>
+  <text x="46" y="421" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Living Room TV</text>
+  <text x="347" y="421" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.30</text>
+  <rect x="46" y="429" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="441" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <text x="347" y="442" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:01</text>
+  <line x1="16" y1="454" x2="359" y2="454" stroke="#e2e8f0"/>
+  <circle cx="34" cy="475" r="4" fill="#15803d"/>
+  <text x="46" y="479" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Office Printer</text>
+  <text x="347" y="479" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.50</text>
+  <rect x="46" y="487" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="499" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <text x="347" y="500" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:03</text>
+  <line x1="16" y1="512" x2="359" y2="512" stroke="#e2e8f0"/>
+  <circle cx="34" cy="533" r="4" fill="#15803d"/>
+  <text x="46" y="537" font-size="14" font-weight="700" fill="#0f172a" text-anchor="start">Doorbell</text>
+  <text x="347" y="537" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">192.0.2.61</text>
+  <rect x="46" y="545" width="40.0" height="16" rx="8" fill="#dcfce7"/>
+  <text x="52" y="557" font-size="10" font-weight="600" fill="#15803d" text-anchor="start">Known</text>
+  <text x="347" y="558" font-size="10" font-weight="400" fill="#64748b" text-anchor="end">02:00:00:••:••:05</text>
+  <text x="187.5" y="592" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">12 devices · tap a MAC to reveal it</text>
+  <rect x="0" y="644" width="375" height="56" rx="0" fill="#ffffff"/>
+  <line x1="0" y1="644" x2="375" y2="644" stroke="#e2e8f0"/>
+  <circle cx="46.875" cy="662" r="4" fill="#64748b"/>
+  <text x="46.875" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Home</text>
+  <circle cx="140.625" cy="662" r="4" fill="#2563eb"/>
+  <text x="140.625" y="684" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">Devices</text>
+  <circle cx="234.375" cy="662" r="4" fill="#64748b"/>
+  <text x="234.375" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Alerts</text>
+  <circle cx="328.125" cy="662" r="4" fill="#64748b"/>
+  <text x="328.125" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Settings</text>
+</svg>

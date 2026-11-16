@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="375" height="700" viewBox="0 0 375 700" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Device page: facts, a 7-day online timeline, and port check findings">
+  <title>Device page: facts, a 7-day online timeline, and port check findings</title>
+  <rect x="0" y="0" width="375" height="700" rx="0" fill="#f4f6f8"/>
+  <text x="16" y="30" font-size="18" font-weight="700" fill="#0f172a" text-anchor="start">Example IoT Modules</text>
+  <line x1="0" y1="46" x2="375" y2="46" stroke="#e2e8f0"/>
+  <rect x="16" y="58" width="343" height="142" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="30" y="71" width="51.199999999999996" height="16" rx="8" fill="#fef3c7"/>
+  <text x="36" y="83" font-size="10" font-weight="600" fill="#b45309" text-anchor="start">Unknown</text>
+  <text x="345" y="84" font-size="12" font-weight="400" fill="#64748b" text-anchor="end">Online now</text>
+  <text x="30" y="108" font-size="12" font-weight="400" fill="#64748b" text-anchor="start">Vendor</text>
+  <text x="126" y="108" font-size="13" font-weight="400" fill="#0f172a" text-anchor="start">Example IoT Modules</text>
+  <text x="30" y="128" font-size="12" font-weight="400" fill="#64748b" text-anchor="start">Hostname</text>
+  <text x="126" y="128" font-size="13" font-weight="400" fill="#0f172a" text-anchor="start">—</text>
+  <text x="30" y="148" font-size="12" font-weight="400" fill="#64748b" text-anchor="start">IP address</text>
+  <text x="126" y="148" font-size="13" font-weight="400" fill="#0f172a" text-anchor="start">192.0.2.77</text>
+  <text x="30" y="168" font-size="12" font-weight="400" fill="#64748b" text-anchor="start">MAC address</text>
+  <text x="126" y="168" font-size="13" font-weight="400" fill="#0f172a" text-anchor="start">02:00:00:••:••:01</text>
+  <text x="30" y="188" font-size="12" font-weight="400" fill="#64748b" text-anchor="start">First seen</text>
+  <text x="126" y="188" font-size="13" font-weight="400" fill="#0f172a" text-anchor="start">9 days ago</text>
+  <rect x="16" y="212" width="343" height="170" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="30" y="238" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">Online, last 7 days</text>
+  <text x="30" y="261" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Tue</text>
+  <rect x="275.0" y="252" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="252" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="298.0" y="252" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="252" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="252" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="252" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="274" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Wed</text>
+  <rect x="68.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="79.5" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="91.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="102.5" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="114.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="125.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="137.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="183.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="194.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="206.0" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="217.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="229.0" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="240.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="252.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="263.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="286.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="298.0" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="265" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="332.5" y="265" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="287" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Thu</text>
+  <rect x="68.0" y="278" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="79.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="91.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="102.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="114.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="125.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="137.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="183.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="194.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="206.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="217.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="229.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="278" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="252.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="263.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="278" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="298.0" y="278" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="309.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="278" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="300" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Fri</text>
+  <rect x="68.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="79.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="91.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="102.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="114.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="125.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="137.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="183.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="194.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="206.0" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="217.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="229.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="252.0" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="263.5" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="298.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="321.0" y="291" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="291" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <text x="30" y="313" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Sat</text>
+  <rect x="68.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="79.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="91.0" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="102.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="114.0" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="125.5" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="137.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="183.0" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="194.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="206.0" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="217.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="229.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="252.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="263.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="304" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="298.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="304" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="326" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Sun</text>
+  <rect x="68.0" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="79.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="91.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="102.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="114.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="125.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="137.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="171.5" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="183.0" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="194.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="206.0" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="217.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="229.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="252.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="263.5" y="317" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="275.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="298.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="317" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="339" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Mon</text>
+  <rect x="68.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="79.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="91.0" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="102.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="114.0" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="125.5" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="137.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="160.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="183.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="194.5" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="206.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="217.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="229.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="252.0" y="330" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="263.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="286.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="298.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="309.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="321.0" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="332.5" y="330" width="10" height="10" rx="2" fill="#15803d"/>
+  <text x="30" y="352" font-size="10" font-weight="400" fill="#64748b" text-anchor="start">Tue</text>
+  <rect x="68.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="79.5" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="91.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="102.5" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="114.0" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="125.5" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="137.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="148.5" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="160.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="171.5" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="183.0" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="194.5" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="206.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="217.5" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="229.0" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="240.5" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="252.0" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <rect x="263.5" y="343" width="10" height="10" rx="2" fill="#15803d"/>
+  <rect x="275.0" y="343" width="10" height="10" rx="2" fill="#e2e8f0"/>
+  <text x="68.0" y="372" font-size="9" font-weight="400" fill="#64748b" text-anchor="start">12a</text>
+  <text x="137.0" y="372" font-size="9" font-weight="400" fill="#64748b" text-anchor="start">6a</text>
+  <text x="206.0" y="372" font-size="9" font-weight="400" fill="#64748b" text-anchor="start">12p</text>
+  <text x="275.0" y="372" font-size="9" font-weight="400" fill="#64748b" text-anchor="start">6p</text>
+  <rect x="16" y="394" width="343" height="236" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="30" y="420" font-size="15" font-weight="700" fill="#0f172a" text-anchor="start">Port check</text>
+  <rect x="269" y="404" width="76" height="28" rx="9" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="307.0" y="422" font-size="12" font-weight="600" fill="#0f172a" text-anchor="middle">Scan now</text>
+  <text x="30" y="442" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">Nmap TCP connect scan · top 100 ports</text>
+  <rect x="26" y="450" width="323" height="80" rx="10" fill="#fef3c7"/>
+  <text x="36" y="470" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">80/tcp · Unencrypted web page (HTTP)</text>
+  <text x="36" y="488" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">An admin or setup page without encryption: anyone on</text>
+  <text x="36" y="502" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">the network can read the login.</text>
+  <text x="36" y="520" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">What to do: Use the HTTPS page if the device has one, a…</text>
+  <rect x="26" y="536" width="323" height="80" rx="10" fill="#fef3c7"/>
+  <text x="36" y="556" font-size="13" font-weight="700" fill="#0f172a" text-anchor="start">1900/tcp · UPnP (SSDP)</text>
+  <text x="36" y="574" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">UPnP lets devices open holes in the router's firewall</text>
+  <text x="36" y="588" font-size="11" font-weight="400" fill="#0f172a" text-anchor="start">automatically.</text>
+  <text x="36" y="606" font-size="11" font-weight="400" fill="#64748b" text-anchor="start">What to do: Consider turning UPnP off on the gateway an…</text>
+  <rect x="0" y="644" width="375" height="56" rx="0" fill="#ffffff"/>
+  <line x1="0" y1="644" x2="375" y2="644" stroke="#e2e8f0"/>
+  <circle cx="46.875" cy="662" r="4" fill="#64748b"/>
+  <text x="46.875" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Home</text>
+  <circle cx="140.625" cy="662" r="4" fill="#2563eb"/>
+  <text x="140.625" y="684" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">Devices</text>
+  <circle cx="234.375" cy="662" r="4" fill="#64748b"/>
+  <text x="234.375" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Alerts</text>
+  <circle cx="328.125" cy="662" r="4" fill="#64748b"/>
+  <text x="328.125" y="684" font-size="11" font-weight="400" fill="#64748b" text-anchor="middle">Settings</text>
+</svg>
